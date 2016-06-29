@@ -66,7 +66,7 @@ get_torrent_info_by_hash( char* hash, char* buf, int maxlen ) {
 	char cmd[1024];
 	char* n;
 
-	snprintf (cmd,1023, "lynx -dump -width=1024 \"https://btdigg.org/search?q&info_hash=%s&hl=ru\" | awk '/Имя:/ {$1=\"\"; printf \"%%s \", $_} /Размер:/ {$1=\"\"; printf \"&nbsp;&nbsp;%%s\", $_} /Torrent not found/ {printf \"+++unknown+++\"} END {printf \"\\n\"}'", hash);
+	snprintf (cmd,1023, "lynx -dump -width=1024 \"https://btdigg.pw/search?q&info_hash=%s&hl=ru\" | awk '/Имя:/ {$1=\"\"; printf \"%%s \", $_} /Размер:/ {$1=\"\"; printf \"&nbsp;&nbsp;%%s\", $_} /Torrent not found/ {printf \"+++unknown+++\"} END {printf \"\\n\"}'", hash);
 //	fputs (cmd, stderr); fputc('\n',stderr);
 	lfile = popen (cmd, "r");
 	res = fgets (buf, maxlen, lfile);
@@ -270,7 +270,7 @@ dump() {
 				cache_index = cache_index_by_hash(transfer[np].hash);
 				if (Opt_verbose==1)
 					fprintf( stdout, "  hash %s name %s\n", transfer[np].hash, namecache[cache_index].filename );
-				fprintf( ipfile, "<a href=\"https://btdigg.org/search?q&info_hash=%s&hl=ru\" class=\"torrents\">%s</a><br>\n", transfer[np].hash, namecache[cache_index].filename);
+				fprintf( ipfile, "<a href=\"https://btdigg.pw/search?q&info_hash=%s&hl=ru\" class=\"torrents\">%s</a><br>\n", transfer[np].hash, namecache[cache_index].filename);
 				transfer[np].dumped=1;
 			}
 		}
@@ -295,7 +295,7 @@ usage(void)
 	fprintf(stderr,"dumps html files to <directory> every <dump interval> seconds (default 60).\n");
 	fprintf(stderr,"  -p  maximum age for expired html dump (default 50 sec)\n");
 	fprintf(stderr,"  -v  dump results to stdout too\n");
-	fprintf(stderr,"  -r  resolve hash names using btdigg.org and torrentreactor.net (lynx, awk required)\n");
+	fprintf(stderr,"  -r  resolve hash names using btdigg.pw and torrentreactor.net (lynx, awk required)\n");
 	fprintf(stderr,"Examples:\n");
 	fprintf(stderr,"  sudo tcpdump -n -i eth0 -w - -U 'tcp[21:4]==0x42697454 and tcp[25:4]==0x6f727265' | captorrents -a 192.168. -d ./torrdump -i 60 -p 300 -r -v\n");
 	fprintf(stderr,"  captorrents -a 10. -d ./torrdump -v pcap.dump\n");
